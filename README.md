@@ -1,7 +1,7 @@
 ShinyMongo
 ========================================================
 
-ShinyMongo is an [R](http://www.r-project.org) based [mongoDB](http://www.mongodb.org) user interface. Using the R packages [shiny](http://www.rstudio.org/shiny/) and [rmongodb](http://cran.r-project.org/package=rmongodb) and less than 200 lines of code you can create a simple mongoDB user-interface to view mongoDB data. Querying mongoDB data is currently running in an experimental mode. It is already working for simple queries.
+ShinyMongo is an [R](http://www.r-project.org) based [mongoDB](http://www.mongodb.org) user interface. Using the R packages [shiny](http://www.rstudio.org/shiny/) and [rmongodb](http://cran.r-project.org/package=rmongodb) and less than 200 lines of code you can create a simple mongoDB user-interface to view mongoDB data. Querying mongoDB data is currently running in an experimental mode. It is already working for simple queries (no support for 'Comparison Query Operators' and objects in array).
 
 
 Installation and Operation
@@ -14,7 +14,7 @@ You can run ShinyMongo locally on your machine directly from github:
 library(shiny)
 shiny::runGitHub('ShinyMongo', 'comsysto', subdir='ShinyApp')
 ```
-Next the shiny package only the package rmongodb will be required. Due to the experimental testing with real-time JSON queyering the package "RJSONIO" will be required too.
+Next the shiny package only the package rmongodb will be required. Due to the experimental testing with real-time JSON queyering the package "rjson" will be required too.
 
 Or please fell free to clone the repository and go on developing and running ShinyMongo.
 

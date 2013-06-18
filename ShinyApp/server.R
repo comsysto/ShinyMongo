@@ -7,7 +7,8 @@
 
 library(shiny)
 library(rmongodb)
-library(RJSONIO)
+library(rjson)
+#RJSONJO gets problems with big JSON objects )-:
 
 # parameter to set the maximum queyering and displaying lentgth
 limit <- 100L
@@ -65,7 +66,7 @@ shinyServer(function(input, output) {
   output$connection <- renderText({
     mongo <- connection()
     if (mongo.is.connected(mongo)) {
-      str <-    mongo.get.primary(mongo)
+      str <- mongo.get.primary(mongo)
       paste("Connected to ", str , sep="")
     } else {
       # ToDo: more detailed errors
@@ -88,7 +89,7 @@ shinyServer(function(input, output) {
         }
       }
         
-      if( !is.null(input$collections_input) ){
+      if( !is.null(input$collections_input) && !is.null(input$query) ){
         cursor <- mongo.find(mongo, input$collections_input, query, limit=limit)
         res_list <- list()
         tmp_all <- NULL
@@ -122,7 +123,7 @@ shinyServer(function(input, output) {
   # display table with collection overview
   output$view_collections <- renderTable({
     mongo <- connection()
-    if (mongo.is.connected(mongo)) {
+    if( mongo.is.connected(mongo) ) {
       if( !is.null(input$db_input) ){
         coll <- mongo.get.database.collections(mongo, input$db_input)
         
@@ -132,7 +133,8 @@ shinyServer(function(input, output) {
           tmp <- cbind(i,val)
           res <- rbind(res, tmp)
         }
-        colnames(res) <- c("collection", "# documents")
+        if( !is.null(res) )
+          colnames(res) <- c("collection", "# documents")
         
         return(res)
       }
