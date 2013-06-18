@@ -14,7 +14,7 @@ You can run ShinyMongo locally on your machine directly from github:
 library(shiny)
 shiny::runGitHub('ShinyMongo', 'comsysto', subdir='ShinyApp')
 ```
-Next the shiny only the package rmongodb will be required.
+Next the shiny package only the package rmongodb will be required. Due to the experimental testing with real-time JSON queyering the package "RJSONIO" will be required too.
 
 Or please fell free to clone the repository and go on developing and running ShinyMongo.
 

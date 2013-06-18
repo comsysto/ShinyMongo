@@ -7,7 +7,7 @@
 
 library(shiny)
 library(rmongodb)
-library(rjsonio)
+library(RJSONIO)
 
 # parameter to set the maximum queyering and displaying lentgth
 limit <- 100L
