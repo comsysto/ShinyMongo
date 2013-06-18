@@ -13,6 +13,7 @@ shinyUI(pageWithSidebar(
   # Application title
   headerPanel("ShinyMongo"),
   
+  # Sidebar
   sidebarPanel(
     
     textInput("host", "Host:", "localhost"),
@@ -30,6 +31,7 @@ shinyUI(pageWithSidebar(
     helpText("more at https://github.com/comsysto/ShinyMongo")
     ),
   
+  # main window
   mainPanel(
     
     textOutput("connection"),

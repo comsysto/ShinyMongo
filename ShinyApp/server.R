@@ -7,15 +7,24 @@
 
 library(shiny)
 library(rmongodb)
-library(rjson)
-limit <- 20L
+library(rjsonio)
+
+# parameter to set the maximum queyering and displaying lentgth
+limit <- 100L
+
 
 shinyServer(function(input, output) {
   
+  # create mongo connection
   connection <- reactive({
     mongo <- mongo.create(input$host, username=input$username, password=input$password)
   })
   
+  ####################
+  # sidebar rendering
+  ####################
+  
+  # render database input field
   output$dbs <- renderUI({
     mongo <- connection()
     if (mongo.is.connected(mongo)) {
@@ -24,6 +33,7 @@ shinyServer(function(input, output) {
     }
   })
   
+  # render collection input field
   output$collections <- renderUI({
     mongo <- connection()
     if (mongo.is.connected(mongo)) {
@@ -34,6 +44,7 @@ shinyServer(function(input, output) {
     }
   })
   
+  # render query input field
   output$query <- renderUI({  
     mongo <- connection()
     if (mongo.is.connected(mongo)) {
@@ -46,20 +57,27 @@ shinyServer(function(input, output) {
   })
   
   
+  ####################
+  # output / main window rendering
+  ####################
+  
+  # display text for connection information / error
   output$connection <- renderText({
     mongo <- connection()
     if (mongo.is.connected(mongo)) {
       str <-    mongo.get.primary(mongo)
       paste("Connected to ", str , sep="")
     } else {
+      # ToDo: more detailed errors
       paste("Unable to connect.  Error code:", mongo.get.err(mongo))
     }
   })
   
-
+  # display collection data as JSON output
   output$view <- renderText({
     mongo <- connection()
     if (mongo.is.connected(mongo)) {
+    
       if( !is.null(input$query) ){
         if( input$query !="" ){
           Rquery <- fromJSON(input$query)
@@ -81,7 +99,6 @@ shinyServer(function(input, output) {
          i <- i+1
        }
        mongo.cursor.destroy(cursor)
-
         json <- toJSON(res_list)
         json <- gsub("\\},\\{", "},<br><br>{", json)
        return( json )
@@ -89,7 +106,7 @@ shinyServer(function(input, output) {
     }
   })
   
-  
+  # display Headline for collection data output
   output$view_head <- renderText({
     mongo <- connection()
     if (mongo.is.connected(mongo)) {
@@ -102,6 +119,7 @@ shinyServer(function(input, output) {
     }
   })
   
+  # display table with collection overview
   output$view_collections <- renderTable({
     mongo <- connection()
     if (mongo.is.connected(mongo)) {
