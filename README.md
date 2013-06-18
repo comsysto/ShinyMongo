@@ -6,7 +6,7 @@ ShinyMongo is an [R](http://www.r-project.org) based [mongoDB](http://www.mongod
 
 Installation and Operation
 ------------------------------------
-ShinyMongo is running on the beta shiny-server provided by [RStudio](http://www.rstudio.com/). Press the URL, add your hostname and browse your mongoDB instance: http://spark.rstudio.com/schmidb/ShinyMongo/
+ShinyMongo is running on the beta shiny-server provided by [RStudio](http://www.rstudio.com/). Press the URL, add your hostname (IP or DNS name) and browse your mongoDB instance: http://spark.rstudio.com/schmidb/ShinyMongo/
 
 
 You can run ShinyMongo locally on your machine directly from github:
